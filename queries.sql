@@ -46,3 +46,58 @@ WHERE b.full_name = 'Dean Winchester' AND a.escape_attempts = 0;
 SELECT a.full_name AS "Owner Name", COUNT(b.*) AS "Animal Count" FROM owners a
 LEFT JOIN animals b ON a.id = b.owner_id
 GROUP BY a.full_name;
+
+/* Many To Many Queries */
+
+SELECT a.name AS "Animal", c.name AS "Vet" FROM animals a
+JOIN visits b ON a.id = b.animal_id
+JOIN vets c ON c.id = b.vet_id
+WHERE c.name = 'William Tatcher'
+ORDER BY date_of_visit DESC
+LIMIT 1;
+
+SELECT v.name AS "Vet", a.name AS "Animal", COUNT(a.name) AS "Visit Count" FROM visits vi
+JOIN animals a ON vi.animal_id = a.id 
+JOIN vets v ON vi.vet_id = v.id 
+WHERE v.name = 'Stephanie Mendez'
+GROUP BY v.name, a.name;
+
+SELECT v.name AS "Vet", s.name AS "Species" FROM specializations sp
+RIGHT JOIN vets v ON sp.vet_id = v.id
+LEFT JOIN species s ON sp.species_id = s.id;
+
+SELECT v.name AS "Vet", a.name AS "Animal", COUNT(a.name) AS "Visit Count" FROM visits vi
+JOIN vets v ON vi.vet_id = v.id 
+JOIN animals a ON vi.animal_id = a.id
+WHERE v.name = 'Stephanie Mendez' AND vi.date_of_visit BETWEEN '2020-04-01' and '2020-08-30'
+GROUP BY a.name, v.name;
+
+SELECT a.name AS "Animal", v.name AS "Vet", count(a.name) AS visit_count from visits vi
+JOIN animals a on a.id = vi.animal_id
+JOIN vets v on v.id = vi.vet_id
+GROUP BY a.name, v.name
+ORDER by visit_count DESC LIMIT 1;
+
+SELECT a.name AS "Animal", v.name AS "Vet" from visits vi
+JOIN animals a ON vi.animal_id = a.id
+JOIN vets v ON vi.vet_id = v.id
+WHERE v.name = 'Maisy Smith'
+ORDER BY vi.date_of_visit LIMIT 1;
+
+SELECT a.*, v.*, vi.date_of_visit FROM visits vi
+JOIN animals a ON vi.animal_id = a.id 
+JOIN vets v ON vi.vet_id = v.id
+ORDER BY vi.date_of_visit DESC LIMIT 1;
+
+SELECT count(*) AS "Unspecialized Visits To Vet" FROM visits
+LEFT JOIN specializations ON specializations.vet_id = visits.vet_id
+WHERE specializations.species_id IS NULL;
+
+
+SELECT a.name AS "Animal", s.name AS "Species Name", count(*) AS total_visits FROM visits vi
+JOIN animals a ON vi.animal_id = a.id
+JOIN vets v ON vi.vet_id = v.id
+JOIN species s ON s.id = a.species_id
+WHERE v.name = 'Maisy Smith'
+GROUP BY s.name, a.name
+ORDER BY total_visits DESC;
