@@ -46,3 +46,131 @@ UPDATE animals SET owner_id = 2 WHERE name IN( 'Gabumon', 'Pikachu');
 UPDATE animals SET owner_id = 3 WHERE name IN( 'Devimon', 'Plantmon');
 UPDATE animals SET owner_id = 4 WHERE name IN( 'Charmander', 'Squirtle', 'Blossom');
 UPDATE animals SET owner_id = 5 WHERE name IN( 'Angemon', 'Boarmon');
+
+/* Vets data */
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES
+('William Tatcher', 45, '2000-04-23'),
+('Maisy Smith', 26, '2019-01-17'),
+('Stephanie Mendez', 64, '1981-05-04'),
+('Jack Harkness', 38, '2008-06-08');
+
+insert into specializations (vet_id, species_id) values
+(
+    (select id from vets where name='William Tatcher'),
+    (select id from species where name='Pokemon')
+),
+(
+    (select id from vets where name='Stephanie Mendez'),
+    (select id from species where name='Pokemon')
+),
+(
+    (select id from vets where name='Stephanie Mendez'),
+    (select id from species where name='Digimon')
+),
+(
+    (select id from vets where name='Jack Harkness'),
+    (select id from species where name='Digimon')
+);
+
+insert into visits (animal_id, vet_id, date_of_visit) values
+(
+    (select id from animals where name='Agumon'),
+    (select id from vets where name='William Tatcher'),
+    TO_DATE('May 24, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Agumon'),
+    (select id from vets where name='Stephanie Mendez'),
+    TO_DATE('Jul 22, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Gabumon'),
+    (select id from vets where name='Jack Harkness'),
+    TO_DATE('Feb 2, 2021', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Pikachu'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Jan 5, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Pikachu'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Mar 8, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Pikachu'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('May 14, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Devimon'),
+    (select id from vets where name='Stephanie Mendez'),
+    TO_DATE('May 4, 2021', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Charmander'),
+    (select id from vets where name='Jack Harkness'),
+    TO_DATE('Feb 24, 2021', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Plantmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Dec 21, 2019', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Plantmon'),
+    (select id from vets where name='William Tatcher'),
+    TO_DATE('Aug 10, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Plantmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Apr 7, 2021', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Squirtle'),
+    (select id from vets where name='Stephanie Mendez'),
+    TO_DATE('Sep 29, 2019', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Angemon'),
+    (select id from vets where name='Jack Harkness'),
+    TO_DATE('Oct 3, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Angemon'),
+    (select id from vets where name='Jack Harkness'),
+    TO_DATE('Nov 4, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Boarmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Jan 24, 2019', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Boarmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('May 15, 2019', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Boarmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Feb 27, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Boarmon'),
+    (select id from vets where name='Maisy Smith'),
+    TO_DATE('Aug 3, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Blossom'),
+    (select id from vets where name='Stephanie Mendez'),
+    TO_DATE('May 24, 2020', 'Mon DD, YYYY')
+),
+(
+    (select id from animals where name='Blossom'),
+    (select id from vets where name='William Tatcher'),
+    TO_DATE('Jan 11, 2021', 'Mon DD, YYYY')
+);
