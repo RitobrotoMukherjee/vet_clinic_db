@@ -21,6 +21,8 @@ If you wish to run the project locally, please do the following:
     - **`git clone https://github.com/RitobrotoMukherjee/vet_clinic_db.git`**
     - **`cd vet_clinic_db`**
 
+## ER Diagram:
+> ![ERD](IMG-20220816-WA0037.jpg)
 
 ## Built With
 
